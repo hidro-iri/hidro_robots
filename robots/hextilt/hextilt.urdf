@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="hextilt">
+  <link name="hextilt__base_link">
+    <inertial>
+      <origin xyz="-0.0054412 0.003948 -0.0087555" />
+      <mass value="1.0194" />
+      <inertia ixx="0.0015891"
+        ixy="-3.0072E-06"
+        ixz="-4.0534E-07"
+        iyy="0.0015947"
+        iyz="2.85E-06"
+        izz="0.0029281" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hextilt/meshes/hextilt.dae" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hextilt/meshes/hextilt.dae" />
+      </geometry>
+    </collision>
+  </link>
+</robot>

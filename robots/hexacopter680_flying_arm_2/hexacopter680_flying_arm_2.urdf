@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="hexacopter680_flying_arm_2">
+
+  <link name="hexacopter680__base_link">
+    <inertial>
+      <origin xyz="-0.10926 -8.7904E-10 -0.047707" rpy="0 0 0" />
+      <mass value="2.8968" />
+      <inertia ixx="0.0023184" ixy="-2.391E-14" ixz="-1.204E-13" iyy="0.0074172" iyz="9.9707E-12" izz="0.0087069" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hexacopter680_flying_arm_2/meshes/hexacopter680.dae" />
+      </geometry>
+      <material name="">
+        <color rgba="1 0.50196 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hexacopter680_flying_arm_2/meshes/hexacopter680.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="flying_arm_2__base_link">
+    <inertial>
+      <origin xyz="-0.00067537 0.0046183 -6.3561E-05" rpy="0 0 0" />
+      <mass value="0.23972" />
+      <inertia ixx="6.4697E-05" ixy="-5.7049E-10" ixz="5.704E-10" iyy="6.5668E-05" iyz="-7.6462E-09" izz="7.2701E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hexacopter680_flying_arm_2/meshes/base_link.dae" />
+      </geometry>
+      <material name="">
+        <color rgba="0.2 0.8 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hexacopter680_flying_arm_2/meshes/base_link.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="flying_arm_2__j_base_link" type="fixed">
+    <origin xyz="0.20335 0 -0.0867" rpy="1.5708 0 -1.5708" />
+    <parent link="hexacopter680__base_link" />
+    <child link="flying_arm_2__base_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="flying_arm_2__link_1">
+    <inertial>
+      <origin xyz="-0.01125 -3.0992E-05 -0.076705" rpy="0 0 0" />
+      <mass value="0.077411" />
+      <inertia ixx="0.00020965" ixy="8.727E-13" ixz="-2.0762E-06" iyy="0.00019504" iyz="6.7947E-12" izz="1.7879E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hexacopter680_flying_arm_2/meshes/link1.dae" />
+      </geometry>
+      <material name="">
+        <color rgba="1.0 0.2 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hexacopter680_flying_arm_2/meshes/link1.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="flying_arm_2__j_base_link_link_1" type="revolute">
+    <origin xyz="0 0 0" rpy="1.5708 0 3.1416" />
+    <parent link="flying_arm_2__base_link" />
+    <child link="flying_arm_2__link_1" />
+    <axis xyz="1 0 0" />
+    <limit effort="1" lower="-1.6707963267948966" upper="1.6707963267948966" velocity="10000" />
+  </joint>
+
+  <link name="flying_arm_2__link_2">
+    <inertial>
+      <origin xyz="-0.018101 -1.7307E-09 0.10957" rpy="0 0 0" />
+      <mass value="0.16984" />
+      <inertia ixx="0.00014755" ixy="3.0539E-13" ixz="5.4946E-06" iyy="0.00013211" iyz="-8.108E-12" izz="2.2127E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hexacopter680_flying_arm_2/meshes/link2.dae" />
+      </geometry>
+      <material name="">
+        <color rgba="1.0 0.8 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/hexacopter680_flying_arm_2/meshes/link2.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="flying_arm_2__j_link_1_link_2" type="revolute">
+    <origin xyz="0 0 -0.132" rpy="3.1416 0 -3.1416" />
+    <parent link="flying_arm_2__link_1" />
+    <child link="flying_arm_2__link_2" />
+    <axis xyz="1 0 0" />
+    <limit effort="1" lower="-1.6707963267948966" upper="1.6707963267948966" velocity="10000" />
+  </joint>
+
+  <link name="flying_arm_2__gripper">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <mass value="0." />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+  </link>
+
+  <joint name="flying_arm_3__j_link_2_gripper" type="fixed">
+    <origin xyz="0 0 0.14" rpy="0 0 0" />
+    <parent link="flying_arm_2__link_2" />
+    <child link="flying_arm_2__gripper" />
+    <axis xyz="0 0 0" />
+    <limit lower="0" upper="0" effort="0" velocity="0" />
+  </joint>
+</robot>
