@@ -4,9 +4,8 @@
     <inertial>
 
       <!-- TODO: update with real info from Amanda's experiments-->
-      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-      <!-- <mass value="1.952" /> -->
-      <mass value="2.085" />
+      <origin xyz="0.0 0.0 0.0341" rpy="0 0 0" />
+      <mass value="2.049" />
       <inertia ixx="0.017598" ixy="0.0" ixz="0.0" iyy="0.017957" iyz="0.0" izz="0.029599" />
     </inertial>
     <visual>
