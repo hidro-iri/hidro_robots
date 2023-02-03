@@ -2,7 +2,7 @@
 <sdf version='1.5'>
   <model name='borinot'>
     <link name='borinot__base_link'>
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0 0 0.15 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>1.9828</mass>
@@ -21,6 +21,44 @@
         <geometry>
           <box>
             <size>0.67 0.67 0.15</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <min_depth>0.001</min_depth>
+              <max_vel>0</max_vel>
+            </ode>
+          </contact>
+          <friction>
+            <ode />
+          </friction>
+        </surface>
+      </collision>
+      <collision name='left_foot_collision'>
+        <pose>0 -0.12 -0.09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.3 0.12 0.12</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <min_depth>0.001</min_depth>
+              <max_vel>0</max_vel>
+            </ode>
+          </contact>
+          <friction>
+            <ode />
+          </friction>
+        </surface>
+      </collision>
+      <collision name='right_foot_collision'>
+        <pose>0 0.12 -0.09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.3 0.12 0.12</size>
           </box>
         </geometry>
         <surface>
@@ -93,7 +131,7 @@
       </axis>
     </joint>
     <link name='rotor_0'>
-      <pose> 0 -0.185 0.05 0 0 0</pose>
+      <pose> 0 -0.185 0.2 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -158,7 +196,7 @@
       </axis>
     </joint>
     <link name='rotor_1'>
-      <pose>0 0.185 0.05 0 0 0</pose>
+      <pose>0 0.185 0.2 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -223,7 +261,7 @@
       </axis>
     </joint>
     <link name='rotor_2'>
-      <pose>0.1602146997 0.0925 0.05 0 0 0</pose>
+      <pose>0.1602146997 0.0925 0.2 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -288,7 +326,7 @@
       </axis>
     </joint>
     <link name='rotor_3'>
-      <pose>-0.1602146997 -0.0925 0.05 0 0 0</pose>
+      <pose>-0.1602146997 -0.0925 0.2 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -353,7 +391,7 @@
       </axis>
     </joint>
     <link name='rotor_4'>
-      <pose>0.1602146997 -0.0925 0.05 0 0 0</pose>
+      <pose>0.1602146997 -0.0925 0.2 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -418,7 +456,7 @@
       </axis>
     </joint>
     <link name='rotor_5'>
-      <pose>-0.1602146997 0.0925 0.05 0 0 0</pose>
+      <pose>-0.1602146997 0.0925 0.2 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
