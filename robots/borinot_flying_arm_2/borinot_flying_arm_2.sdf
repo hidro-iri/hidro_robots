@@ -24,7 +24,6 @@
         </dynamics>
       </axis>
     </joint>
-
     <link name='flying_arm_2__link1'>
       <pose relative_to='flying_arm_2__j_bl_link1'>0 0 0 0 0 0</pose>
       <inertial>
@@ -40,7 +39,7 @@
         </inertia>
       </inertial>
       <collision name='flying_arm_2__link1_collision'>
-        <pose>1.377e-05 -0.078707 -0.01935853 0 0 0</pose>
+        <pose>0 -0.085 -0.02 0 0 0</pose>
         <geometry>
           <box>
             <size>0.04 0.2 0.04</size>
@@ -94,10 +93,10 @@
         </inertia>
       </inertial>
       <collision name='flying_arm_2__link2_collision'>
-        <pose>0 -0.1149 -0.021 0 0 0</pose>
+        <pose>0 -0.06 -0.01 0 0 0</pose>
         <geometry>
           <box>
-            <size>0.04 0.18 0.04</size>
+            <size>0.04 0.15 0.02</size>
           </box>
         </geometry>
       </collision>
@@ -115,5 +114,44 @@
         </material>
       </visual>
     </link>
+
+    <plugin
+      filename="libgazebo_odri_joint_controller.so"
+      name="odri_joint_controller::OdriJointController">
+      <joint_name>flying_arm_2__j_bl_link1</joint_name>
+      <topic_cmd>/flying_arm_2__j_bl_link1/cmd</topic_cmd>
+      <topic_state>/flying_arm_2__j_bl_link1/state</topic_state>
+      <motor_constant>0.025</motor_constant>
+      <gear_ratio>9</gear_ratio>
+      <max_current>4</max_current>
+      <!-- <reverse_polarity>true</reverse_polarity> -->
+      <max_velocity>80.</max_velocity>
+      <lower_limit>-1.5</lower_limit>
+      <upper_limit>+1.5</upper_limit>
+      <kp>0.5</kp>
+      <kd>5.0</kd>
+      <kff>1.0</kff>
+      <dt>0.001</dt>
+    </plugin>
+
+    <plugin
+      filename="libgazebo_odri_joint_controller.so"
+      name="odri_joint_controller::OdriJointController">
+      <joint_name>flying_arm_2__j_link1_link2</joint_name>
+      <topic_cmd>/flying_arm_2__j_link1_link2/cmd</topic_cmd>
+      <topic_state>/flying_arm_2__j_link1_link2/state</topic_state>
+      <motor_constant>0.025</motor_constant>
+      <gear_ratio>9</gear_ratio>
+      <max_current>4</max_current>
+      <!-- <reverse_polarity>true</reverse_polarity> -->
+      <max_velocity>80.</max_velocity>
+      <lower_limit>-3</lower_limit>
+      <upper_limit>+3</upper_limit>
+      <kp>0.5</kp>
+      <kd>5.0</kd>
+      <kff>1.0</kff>
+      <dt>0.001</dt>
+    </plugin>
+
   </model>
 </sdf>
