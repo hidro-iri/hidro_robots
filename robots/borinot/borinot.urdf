@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="borinot">
+  <link name="borinot__base_link">
+    <inertial>
+
+      <!-- TODO: update with real info from Amanda's experiments-->
+      <origin xyz="0.0 0.0 0.0341" rpy="0 0 0" />
+      <mass value="2.049" />
+      <inertia ixx="0.017598" ixy="0.0" ixz="0.0" iyy="0.017957" iyz="0.0" izz="0.029599" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://hidro_robots/robots/borinot/meshes/borinot__base_link.dae" scale="1 1 1" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8471 0.6078 0.3412 1" />f
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <box size="0.4 0.4 0.2" />
+      </geometry>
+    </collision>
+  </link>
+</robot>
