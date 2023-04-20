@@ -1,0 +1,178 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- macro includes -->
+  <xacro:include
+    filename="$(find hidro_robots)/robots/common/xacro/multicopter.xacro" />
+
+  <xacro:include
+    filename="$(find hidro_robots)/robots/common/xacro/sensors.xacro" />
+
+  <xacro:macro name="borinot_platform" params="simulation">
+
+    <xacro:property name="platform_name" value="borinot" />
+
+    <!-- platform -->
+    <xacro:platform
+      platform_name="${platform_name}"
+      mass="2.049"
+      cog_x="0.0"
+      cog_y="0.0"
+      cog_z="0.0341"
+      i_xx="0.017598"
+      i_yy="0.017957"
+      i_zz="0.029599"
+      mesh="package://hidro_robots/robots/borinot/meshes/borinot__base_link.dae"
+    />
+
+    <!-- rotors -->
+
+    <xacro:rotor
+      platform_name="${platform_name}"
+      rotor_number="0"
+      parent_link="${platform_name}__base_link"
+      x="0.0"
+      y="-0.185"
+      z="0.05"
+      direction="cw"
+      simulation="${simulation}"
+    />
+
+    <xacro:rotor
+      platform_name="${platform_name}"
+      rotor_number="1"
+      parent_link="${platform_name}__base_link"
+      x="0.0"
+      y="0.185"
+      z="0.05"
+      direction="ccw"
+      simulation="${simulation}"
+    />
+
+    <xacro:rotor
+      platform_name="${platform_name}"
+      rotor_number="2"
+      parent_link="${platform_name}__base_link"
+      x="0.1602146997"
+      y="0.0925"
+      z="0.05"
+      direction="cw"
+      simulation="${simulation}"
+    />
+
+    <xacro:rotor
+      platform_name="${platform_name}"
+      rotor_number="3"
+      parent_link="${platform_name}__base_link"
+      x="-0.1602146997"
+      y="-0.0925"
+      z="0.05"
+      direction="ccw"
+      simulation="${simulation}"
+    />
+
+    <xacro:rotor
+      platform_name="${platform_name}"
+      rotor_number="4"
+      parent_link="${platform_name}__base_link"
+      x="0.1602146997"
+      y="-0.0925"
+      z="0.05"
+      direction="ccw"
+      simulation="${simulation}"
+    />
+
+    <xacro:rotor
+      platform_name="${platform_name}"
+      rotor_number="5"
+      parent_link="${platform_name}__base_link"
+      x="-0.1602146997"
+      y="0.0925"
+      z="0.05"
+      direction="cw"
+      simulation="${simulation}"
+    />
+
+    <xacro:if value="${simulation}">
+
+      <xacro:px4_plugins
+        platform_name="${platform_name}"
+      />
+
+      <!-- MAVLINK -->
+      <gazebo>
+        <plugin name='mavlink_interface' filename='libgazebo_mavlink_interface.so'>
+          <robotNamespace />
+          <imuSubTopic>/imu</imuSubTopic>
+          <magSubTopic>/mag</magSubTopic>
+          <baroSubTopic>/baro</baroSubTopic>
+          <mavlink_addr>INADDR_ANY</mavlink_addr>
+          <mavlink_tcp_port>4560</mavlink_tcp_port>
+          <mavlink_udp_port>14560</mavlink_udp_port>
+          <serialEnabled>0</serialEnabled>
+          <serialDevice>/dev/ttyACM0</serialDevice>
+          <baudRate>921600</baudRate>
+          <qgc_addr>INADDR_ANY</qgc_addr>
+          <qgc_udp_port>14550</qgc_udp_port>
+          <sdk_addr>INADDR_ANY</sdk_addr>
+          <sdk_udp_port>14540</sdk_udp_port>
+          <hil_mode>0</hil_mode>
+          <hil_state_level>0</hil_state_level>
+          <send_vision_estimation>0</send_vision_estimation>
+          <send_odometry>1</send_odometry>
+          <enable_lockstep>1</enable_lockstep>
+          <use_tcp>1</use_tcp>
+          <motorSpeedCommandPubTopic>/gazebo/command/motor_speed</motorSpeedCommandPubTopic>
+          <control_channels>
+            <channel name='rotor1'>
+              <input_index>0</input_index>
+              <input_offset>0</input_offset>
+              <input_scaling>2136</input_scaling>
+              <zero_position_disarmed>0</zero_position_disarmed>
+              <zero_position_armed>100</zero_position_armed>
+              <joint_control_type>velocity</joint_control_type>
+            </channel>
+            <channel name='rotor2'>
+              <input_index>1</input_index>
+              <input_offset>0</input_offset>
+              <input_scaling>2136</input_scaling>
+              <zero_position_disarmed>0</zero_position_disarmed>
+              <zero_position_armed>100</zero_position_armed>
+              <joint_control_type>velocity</joint_control_type>
+            </channel>
+            <channel name='rotor3'>
+              <input_index>2</input_index>
+              <input_offset>0</input_offset>
+              <input_scaling>2136</input_scaling>
+              <zero_position_disarmed>0</zero_position_disarmed>
+              <zero_position_armed>100</zero_position_armed>
+              <joint_control_type>velocity</joint_control_type>
+            </channel>
+            <channel name='rotor4'>
+              <input_index>3</input_index>
+              <input_offset>0</input_offset>
+              <input_scaling>2136</input_scaling>
+              <zero_position_disarmed>0</zero_position_disarmed>
+              <zero_position_armed>100</zero_position_armed>
+              <joint_control_type>velocity</joint_control_type>
+            </channel>
+            <channel name='rotor5'>
+              <input_index>4</input_index>
+              <input_offset>0</input_offset>
+              <input_scaling>2136</input_scaling>
+              <zero_position_disarmed>0</zero_position_disarmed>
+              <zero_position_armed>100</zero_position_armed>
+              <joint_control_type>velocity</joint_control_type>
+            </channel>
+            <channel name='rotor6'>
+              <input_index>5</input_index>
+              <input_offset>0</input_offset>
+              <input_scaling>2136</input_scaling>
+              <zero_position_disarmed>0</zero_position_disarmed>
+              <zero_position_armed>100</zero_position_armed>
+              <joint_control_type>velocity</joint_control_type>
+            </channel>
+          </control_channels>
+        </plugin>
+      </gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>

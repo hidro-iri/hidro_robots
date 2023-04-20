@@ -1,7 +1,7 @@
 <!-- DO NOT EDIT: Generated from iris.sdf.jinja -->
 <sdf version='1.5'>
   <model name='borinot'>
-    <pose>0 0 0.149 0 0 0</pose>
+    <pose>0 0 0.0 0 0 0</pose>
     <link name='borinot__base_link'>
       <pose>0 0 0 0 0 0</pose>
       <inertial>
@@ -46,10 +46,10 @@
           </mesh>
         </geometry>
         <material>
-          <script>
-            <name>Gazebo/DarkGrey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
+          <ambient>0.8 0.4 0 1</ambient>
+          <diffuse>0.8 0.4 0 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
         </material>
       </visual>
       <gravity>1</gravity>
@@ -701,7 +701,7 @@
       <hil_state_level>0</hil_state_level>
       <send_vision_estimation>0</send_vision_estimation>
       <send_odometry>1</send_odometry>
-      <enable_lockstep>0</enable_lockstep>
+      <enable_lockstep>1</enable_lockstep>
       <use_tcp>1</use_tcp>
       <motorSpeedCommandPubTopic>/gazebo/command/motor_speed</motorSpeedCommandPubTopic>
       <control_channels>

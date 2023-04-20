@@ -1,0 +1,22 @@
+<robot name="borinot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- macro includes -->
+  <xacro:include
+    filename="$(find hidro_robots)/robots/common/xacro/multicopter.xacro" />
+
+  <xacro:include
+    filename="$(find hidro_robots)/robots/common/xacro/sensors.xacro" />
+
+  <xacro:include
+    filename="$(find hidro_robots)/robots/borinot/xacro/definition.urdf.xacro" />
+
+  <!-- arguments -->
+  <xacro:arg name="simulation" default="true" />
+
+  <!-- properties -->
+  <xacro:property name="simulation" value="$(arg simulation)" />
+
+  <xacro:borinot_platform
+    simulation="${simulation}"
+  />
+
+</robot>

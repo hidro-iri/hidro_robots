@@ -1,0 +1,21 @@
+<robot name="flying_arm2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include
+  filename="$(find hidro_robots)/robots/flying_arm_2/xacro/definition.urdf.xacro" />
+
+  <!-- arguments -->
+  <xacro:arg name="simulation" default="true" />
+
+  <!-- properties -->
+  <xacro:property name="simulation" value="$(arg simulation)" />
+
+  <link name="world" />
+
+  <joint name="fixed" type="fixed">
+    <parent link="world" />
+    <child link="flying_arm_2__base_link" />
+  </joint>
+
+  <xacro:flying_arm_2 simulation="${simulation}" base_link_name="" />
+
+
+</robot>

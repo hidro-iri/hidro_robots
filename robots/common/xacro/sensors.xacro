@@ -1,0 +1,95 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="imu" params="platform_name">
+
+    <link name='${platform_name}__imu'>
+      <inertial>
+        <origin xyz="0.0 0.0 0.0341" rpy="0 0 0" />
+        <mass value="0.15" />
+        <inertia ixx="1e-5" ixy="0.0" ixz="0.0" iyy="1e-5" iyz="0.0" izz="1e-5" />
+      </inertial>
+    </link>
+
+    <joint name="${platform_name}__j_bl_imu" type="revolute">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${platform_name}__base_link" />
+      <child link="${platform_name}__imu" />
+      <limit lower="0" upper="0" effort="0" velocity="0" />
+    </joint>
+
+    <gazebo>
+      <plugin name='imu_plugin' filename='libgazebo_imu_plugin.so'>
+        <robotNamespace />
+        <linkName>${platform_name}__imu</linkName>
+        <imuTopic>/imu</imuTopic>
+        <gyroscopeNoiseDensity>0.0</gyroscopeNoiseDensity>
+        <gyroscopeRandomWalk>0.0</gyroscopeRandomWalk>
+        <gyroscopeBiasCorrelationTime>10.0</gyroscopeBiasCorrelationTime>
+        <gyroscopeTurnOnBiasSigma>0.00</gyroscopeTurnOnBiasSigma>
+        <accelerometerNoiseDensity>0.0</accelerometerNoiseDensity>
+        <accelerometerRandomWalk>0.0</accelerometerRandomWalk>
+        <accelerometerBiasCorrelationTime>3.0</accelerometerBiasCorrelationTime>
+        <accelerometerTurnOnBiasSigma>0.0</accelerometerTurnOnBiasSigma>
+      </plugin>
+    </gazebo>
+
+  </xacro:macro>
+
+  <xacro:macro name="px4_plugins" params="platform_name">
+    <!-- IMU -->
+    <xacro:imu
+      platform_name="${platform_name}"
+    />
+
+    <!-- MULTIROTOR_PLUGINS -->
+    <gazebo>
+      <plugin name='multirotor_plugin' filename='libgazebo_multirotor_base_plugin.so'>
+        <robotNamespace></robotNamespace>
+        <linkName>borinot__base_link</linkName>
+        <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      </plugin>
+    </gazebo>
+
+    <!-- GPS -->
+    <gazebo>
+      <include>
+        <uri>model://gps</uri>
+        <pose>0.1 0 0 0 0 0</pose>
+        <name>gps0</name>
+      </include>
+      <joint name='gps0_joint' type='fixed'>
+        <child>gps0::link</child>
+        <parent>borinot__base_link</parent>
+      </joint>
+    </gazebo>
+
+
+    <!-- GROUNDTRUTH -->
+    <gazebo>
+      <plugin name='groundtruth_plugin' filename='libgazebo_groundtruth_plugin.so'>
+        <robotNamespace />
+      </plugin>
+    </gazebo>
+
+    <!-- MAGNETOMETER -->
+    <gazebo>
+      <plugin name='magnetometer_plugin' filename='libgazebo_magnetometer_plugin.so'>
+        <robotNamespace />
+        <pubRate>100</pubRate>
+        <noiseDensity>0.0004</noiseDensity>
+        <randomWalk>6.4e-06</randomWalk>
+        <biasCorrelationTime>600</biasCorrelationTime>
+        <magTopic>/mag</magTopic>
+      </plugin>
+    </gazebo>
+
+    <!-- BAROMETER -->
+    <gazebo>
+      <plugin name='barometer_plugin' filename='libgazebo_barometer_plugin.so'>
+        <robotNamespace />
+        <pubRate>50</pubRate>
+        <baroTopic>/baro</baroTopic>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+</robot>
