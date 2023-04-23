@@ -7,8 +7,26 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in further dependencies
-# manually. find_package(<dependency> REQUIRED)
+find_package(xacro)
+
+option(CREATE_PLAIN_URDFS "Create plain udrfs from description files" OFF)
+
+if(CREATE_PLAIN_URDFS)
+  if(xacro_FOUND)
+    message(STATUS "Creating plain URDFs")
+
+    file(GLOB ROBOTS_DIR "${CMAKE_SOURCE_DIR}/robots/*")
+    foreach(ROBOT_DIR ${ROBOTS_DIR})
+      get_filename_component(ROBOT_NAME ${ROBOT_DIR} NAME)
+      if(EXISTS "${ROBOT_DIR}/xacro/description.urdf.xacro")
+        message(STATUS "   Creating " ${ROBOT_NAME})
+        execute_process(
+          COMMAND xacro ${ROBOT_DIR}/xacro/description.urdf.xacro -o
+                  ${ROBOT_DIR}/${ROBOT_NAME}.urdf simulation:=false)
+      endif()
+    endforeach()
+  endif()
+endif()
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
