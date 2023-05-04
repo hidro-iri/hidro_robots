@@ -17,24 +17,42 @@
     </joint>
 
     <gazebo>
+      <!-- Ideal IMU config -->
       <plugin name='imu_plugin' filename='libgazebo_imu_plugin.so'>
         <robotNamespace />
         <linkName>${platform_name}__imu</linkName>
         <imuTopic>/imu</imuTopic>
         <gyroscopeNoiseDensity>0.0</gyroscopeNoiseDensity>
         <gyroscopeRandomWalk>0.0</gyroscopeRandomWalk>
-        <gyroscopeBiasCorrelationTime>10.0</gyroscopeBiasCorrelationTime>
+        <gyroscopeBiasCorrelationTime>1000</gyroscopeBiasCorrelationTime>
         <gyroscopeTurnOnBiasSigma>0.00</gyroscopeTurnOnBiasSigma>
         <accelerometerNoiseDensity>0.0</accelerometerNoiseDensity>
         <accelerometerRandomWalk>0.0</accelerometerRandomWalk>
-        <accelerometerBiasCorrelationTime>3.0</accelerometerBiasCorrelationTime>
+        <accelerometerBiasCorrelationTime>300</accelerometerBiasCorrelationTime>
         <accelerometerTurnOnBiasSigma>0.0</accelerometerTurnOnBiasSigma>
       </plugin>
     </gazebo>
 
+    <!-- Noisy + bias IMU config -->
+    <!-- <gazebo>
+      <plugin name='imu_plugin' filename='libgazebo_imu_plugin.so'>
+        <robotNamespace />
+        <linkName>${platform_name}__imu</linkName>
+        <imuTopic>/imu</imuTopic>
+        <gyroscopeNoiseDensity>0.00018665</gyroscopeNoiseDensity>
+        <gyroscopeRandomWalk>3.8785e-05</gyroscopeRandomWalk>
+        <gyroscopeBiasCorrelationTime>1000.0</gyroscopeBiasCorrelationTime>
+        <gyroscopeTurnOnBiasSigma>0.0087</gyroscopeTurnOnBiasSigma>
+        <accelerometerNoiseDensity>0.00186</accelerometerNoiseDensity>
+        <accelerometerRandomWalk>0.006</accelerometerRandomWalk>
+        <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
+        <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
+      </plugin>
+    </gazebo> -->
+
   </xacro:macro>
 
-  <xacro:macro name="px4_plugins" params="platform_name">
+  <xacro:macro name="px4_plugins" params="robot_name platform_name ">
     <!-- IMU -->
     <xacro:imu
       platform_name="${platform_name}"
@@ -72,14 +90,25 @@
 
     <!-- MAGNETOMETER -->
     <gazebo>
+      <!-- Ideal Magneto config -->
       <plugin name='magnetometer_plugin' filename='libgazebo_magnetometer_plugin.so'>
+        <robotNamespace />
+        <pubRate>100</pubRate>
+        <noiseDensity>0.0</noiseDensity>
+        <randomWalk>0.0</randomWalk>
+        <biasCorrelationTime>600</biasCorrelationTime>
+        <magTopic>/mag</magTopic>
+      </plugin>
+
+      <!-- Noisy + bias Magneto config -->
+      <!-- <plugin name='magnetometer_plugin' filename='libgazebo_magnetometer_plugin.so'>
         <robotNamespace />
         <pubRate>100</pubRate>
         <noiseDensity>0.0004</noiseDensity>
         <randomWalk>6.4e-06</randomWalk>
         <biasCorrelationTime>600</biasCorrelationTime>
         <magTopic>/mag</magTopic>
-      </plugin>
+      </plugin> -->
     </gazebo>
 
     <!-- BAROMETER -->
@@ -88,6 +117,7 @@
         <robotNamespace />
         <pubRate>50</pubRate>
         <baroTopic>/baro</baroTopic>
+        <baroDriftPaPerSec>0</baroDriftPaPerSec>
       </plugin>
     </gazebo>
   </xacro:macro>

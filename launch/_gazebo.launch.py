@@ -28,9 +28,10 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(PythonLaunchDescriptionSource(
         [PathJoinSubstitution([FindPackageShare("gazebo_ros"), "launch", "gazebo.launch.py"])]),
                                       launch_arguments={
-                                          "verbose": "false",
+                                          "verbose": "true",
                                           "pause": "false",
                                           "world": world_filename,
+                                          "lockstep": "true",
                                       }.items())
 
     ld.add_action(gazebo)

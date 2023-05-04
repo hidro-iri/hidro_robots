@@ -88,7 +88,7 @@
           <timeConstantUp>0.005</timeConstantUp>
           <timeConstantDown>0.005</timeConstantDown>
           <maxRotVelocity>2236</maxRotVelocity>
-          <motorConstant>4.511e-06</motorConstant>
+          <motorConstant>3.847e-6</motorConstant>
           <momentConstant>0.06</momentConstant>
           <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
           <motorNumber>${rotor_number}</motorNumber>

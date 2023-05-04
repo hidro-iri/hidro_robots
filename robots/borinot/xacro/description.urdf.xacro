@@ -16,7 +16,9 @@
   <xacro:property name="simulation" value="$(arg simulation)" />
 
   <xacro:borinot_platform
+    robot_name="borinot"
     simulation="${simulation}"
+    has_arm="false"
   />
 
 </robot>

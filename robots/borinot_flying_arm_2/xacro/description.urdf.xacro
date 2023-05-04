@@ -1,4 +1,4 @@
-<robot name="borinot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="borinot_flying_arm_2" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- macro includes -->
   <xacro:include
@@ -14,12 +14,26 @@
   <xacro:property name="simulation" value="$(arg simulation)" />
 
   <xacro:borinot_platform
+    robot_name="borinot_flying_arm_2"
     simulation="${simulation}"
+    has_arm="true"
   />
 
   <xacro:flying_arm_2
     simulation="${simulation}"
     base_link_name="borinot__base_link"
   />
+
+  <gazebo>
+    <plugin name='external_force_plugin' filename='libeagle_gazebo_force_plugin.so'>
+      <namespace>borinot_flying_arm_2</namespace>
+      <trajectoryName>aasquare.yaml</trajectoryName>
+      <linkName>borinot__base_link</linkName>
+      <direction>1 0 0</direction>
+      <instant>1.0</instant>
+      <magnitude>30.0</magnitude>
+      <duration>1.0</duration>
+    </plugin>
+  </gazebo>
 
 </robot>

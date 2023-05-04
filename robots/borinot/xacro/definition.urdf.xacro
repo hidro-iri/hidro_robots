@@ -6,25 +6,40 @@
   <xacro:include
     filename="$(find hidro_robots)/robots/common/xacro/sensors.xacro" />
 
-  <xacro:macro name="borinot_platform" params="simulation">
+  <xacro:macro name="borinot_platform" params="robot_name simulation has_arm">
 
     <xacro:property name="platform_name" value="borinot" />
 
     <!-- platform -->
-    <xacro:platform
-      platform_name="${platform_name}"
-      mass="2.049"
-      cog_x="0.0"
-      cog_y="0.0"
-      cog_z="0.0341"
-      i_xx="0.017598"
-      i_yy="0.017957"
-      i_zz="0.029599"
-      mesh="package://hidro_robots/robots/borinot/meshes/borinot__base_link.dae"
-    />
+    <xacro:unless value="${has_arm}">
+      <xacro:platform
+        platform_name="${platform_name}"
+        mass="2.049"
+        cog_x="0.0"
+        cog_y="0.0"
+        cog_z="0.0341"
+        i_xx="0.017598"
+        i_yy="0.017957"
+        i_zz="0.029599"
+        mesh="package://hidro_robots/robots/borinot/meshes/borinot__base_link.dae"
+      />
+    </xacro:unless>
+
+    <xacro:if value="${has_arm}">
+      <xacro:platform
+        platform_name="${platform_name}"
+        mass="2.647"
+        cog_x="0.0"
+        cog_y="0.00244"
+        cog_z="0.0202"
+        i_xx="0.027246422051605018"
+        i_yy="0.026854677520396303"
+        i_zz="0.039807168462897885"
+        mesh="package://hidro_robots/robots/borinot/meshes/borinot__base_link__arm.dae"
+      />
+    </xacro:if>
 
     <!-- rotors -->
-
     <xacro:rotor
       platform_name="${platform_name}"
       rotor_number="0"
@@ -94,6 +109,7 @@
     <xacro:if value="${simulation}">
 
       <xacro:px4_plugins
+        robot_name="${robot_name}"
         platform_name="${platform_name}"
       />
 
