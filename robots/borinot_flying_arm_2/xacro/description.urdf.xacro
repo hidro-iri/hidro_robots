@@ -9,24 +9,30 @@
 
   <!-- arguments -->
   <xacro:arg name="simulation" default="true" />
+  <xacro:arg name="event_based_sim" default="false" />
 
   <!-- properties -->
   <xacro:property name="simulation" value="$(arg simulation)" />
+  <xacro:property name="event_based_sim" value="$(arg event_based_sim)" />
+  <xacro:property name="robot_name" value="borinot_flying_arm_2" />
+
 
   <xacro:borinot_platform
-    robot_name="borinot_flying_arm_2"
+    robot_name="${robot_name}"
     simulation="${simulation}"
     has_arm="true"
+    event_based_sim="${event_based_sim}"
   />
 
   <xacro:flying_arm_2
     simulation="${simulation}"
     base_link_name="borinot__base_link"
+    event_based_sim="${event_based_sim}"
   />
 
   <gazebo>
     <plugin name='external_force_plugin' filename='libeagle_gazebo_force_plugin.so'>
-      <namespace>borinot_flying_arm_2</namespace>
+      <namespace>${robot_name}</namespace>
       <trajectoryName>aasquare.yaml</trajectoryName>
       <linkName>borinot__base_link</linkName>
       <direction>1 0 0</direction>
@@ -35,5 +41,63 @@
       <duration>1.0</duration>
     </plugin>
   </gazebo>
+
+  <xacro:if value="${simulation}">
+    <xacro:if value="${event_based_sim}">
+      <gazebo>
+        <plugin name='eagle_gazebo_event_base_sim_plugin'
+          filename='libeagle_gazebo_event_based_sim_plugin.so'>
+          <simulationRate>2000</simulationRate>
+          <actuationRate>500</actuationRate>
+          <uamStateTopic>/${robot_name}/uam_state</uamStateTopic>
+          <uamControlTopic>/${robot_name}/uam_control</uamControlTopic>
+          <platform_params>
+            <baselinkName>borinot__base_link</baselinkName>
+            <thrustToTorqueRatio>0.01393568</thrustToTorqueRatio>
+            <rotor_params>
+              <number>0</number>
+              <linkName>borinot__rotor0</linkName>
+              <turningDirection>-1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>1</number>
+              <linkName>borinot__rotor1</linkName>
+              <turningDirection>1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>2</number>
+              <linkName>borinot__rotor2</linkName>
+              <turningDirection>-1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>3</number>
+              <linkName>borinot__rotor3</linkName>
+              <turningDirection>1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>4</number>
+              <linkName>borinot__rotor4</linkName>
+              <turningDirection>1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>5</number>
+              <linkName>borinot__rotor5</linkName>
+              <turningDirection>-1</turningDirection>
+            </rotor_params>
+          </platform_params>
+          <arm_params>
+            <joint_params>
+              <number>0</number>
+              <jointName>flying_arm_2__j_bl_link1</jointName>
+            </joint_params>
+            <joint_params>
+              <number>1</number>
+              <jointName>flying_arm_2__j_link1_link2</jointName>
+            </joint_params>
+          </arm_params>
+        </plugin>
+      </gazebo>
+    </xacro:if>
+  </xacro:if>
 
 </robot>

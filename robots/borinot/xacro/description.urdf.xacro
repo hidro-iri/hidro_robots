@@ -11,14 +11,66 @@
 
   <!-- arguments -->
   <xacro:arg name="simulation" default="true" />
+  <xacro:arg name="event_based_sim" default="false" />
 
   <!-- properties -->
   <xacro:property name="simulation" value="$(arg simulation)" />
+  <xacro:property name="event_based_sim" value="$(arg event_based_sim)" />
 
   <xacro:borinot_platform
     robot_name="borinot"
     simulation="${simulation}"
+    event_based_sim="${event_based_sim}"
     has_arm="false"
   />
+
+  <xacro:if value="${simulation}">
+    <xacro:if value="${event_based_sim}">
+      <gazebo>
+        <plugin name='eagle_gazebo_event_base_sim_plugin'
+          filename='libeagle_gazebo_event_based_sim_plugin.so'>
+          <simulationRate>2000</simulationRate>
+          <actuationRate>500</actuationRate>
+          <uamStateTopic>/borinot/uam_state</uamStateTopic>
+          <uamControlTopic>/borinot/uam_control</uamControlTopic>
+          <platform_params>
+            <baselinkName>borinot__base_link</baselinkName>
+            <thrustToTorqueRatio>0.01393568</thrustToTorqueRatio>
+            <rotor_params>
+              <number>0</number>
+              <linkName>borinot__rotor0</linkName>
+              <turningDirection>-1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>1</number>
+              <linkName>borinot__rotor1</linkName>
+              <turningDirection>1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>2</number>
+              <linkName>borinot__rotor2</linkName>
+              <turningDirection>-1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>3</number>
+              <linkName>borinot__rotor3</linkName>
+              <turningDirection>1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>4</number>
+              <linkName>borinot__rotor4</linkName>
+              <turningDirection>1</turningDirection>
+            </rotor_params>
+            <rotor_params>
+              <number>5</number>
+              <linkName>borinot__rotor5</linkName>
+              <turningDirection>-1</turningDirection>
+            </rotor_params>
+          </platform_params>
+          <!-- here add the arm -->
+        </plugin>
+      </gazebo>
+    </xacro:if>
+  </xacro:if>
 
 </robot>

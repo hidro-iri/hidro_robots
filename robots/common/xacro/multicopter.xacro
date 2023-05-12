@@ -29,7 +29,7 @@
   </xacro:macro>
 
   <xacro:macro name="rotor"
-    params="platform_name rotor_number parent_link x y z direction simulation">
+    params="platform_name rotor_number parent_link x y z direction simulation event_based_sim">
 
     <xacro:property name="link_name" value="${platform_name}__rotor${rotor_number}" />
     <xacro:property name="joint_name" value="${platform_name}__j_rotor${rotor_number}" />
@@ -79,25 +79,27 @@
     </joint>
 
     <xacro:if value="${simulation}">
-      <gazebo>
-        <plugin name='${joint_name}_plugin' filename='libgazebo_motor_model.so'>
-          <robotNamespace></robotNamespace>
-          <jointName>${joint_name}</jointName>
-          <linkName>${link_name}</linkName>
-          <turningDirection>${direction_rotation}</turningDirection>
-          <timeConstantUp>0.005</timeConstantUp>
-          <timeConstantDown>0.005</timeConstantDown>
-          <maxRotVelocity>2236</maxRotVelocity>
-          <motorConstant>3.847e-6</motorConstant>
-          <momentConstant>0.06</momentConstant>
-          <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
-          <motorNumber>${rotor_number}</motorNumber>
-          <rotorDragCoefficient>0.000175</rotorDragCoefficient>
-          <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-          <motorSpeedPubTopic>/motor_speed/${rotor_number}</motorSpeedPubTopic>
-          <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
-        </plugin>
-      </gazebo>
+      <xacro:unless value="${event_based_sim}">
+        <gazebo>
+          <plugin name='${joint_name}_plugin' filename='libgazebo_motor_model.so'>
+            <robotNamespace></robotNamespace>
+            <jointName>${joint_name}</jointName>
+            <linkName>${link_name}</linkName>
+            <turningDirection>${direction_rotation}</turningDirection>
+            <timeConstantUp>0.005</timeConstantUp>
+            <timeConstantDown>0.005</timeConstantDown>
+            <maxRotVelocity>2236</maxRotVelocity>
+            <motorConstant>3.847e-6</motorConstant>
+            <momentConstant>0.06</momentConstant>
+            <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
+            <motorNumber>${rotor_number}</motorNumber>
+            <rotorDragCoefficient>0.000175</rotorDragCoefficient>
+            <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+            <motorSpeedPubTopic>/motor_speed/${rotor_number}</motorSpeedPubTopic>
+            <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+          </plugin>
+        </gazebo>
+      </xacro:unless>
     </xacro:if>
   </xacro:macro>
 
