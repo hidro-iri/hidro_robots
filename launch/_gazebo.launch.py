@@ -6,7 +6,7 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription, LaunchService
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, ExecuteProcess
-from launch.substitutions import Command, FindExecutable, PathJoinSubstitution, Command, LaunchConfiguration, TextSubstitution
+from launch.substitutions import Command, FindExecutable, PathJoinSubstitution, Command, LaunchConfiguration, TextSubstitution, PythonExpression
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from launch_ros.actions import Node
@@ -22,16 +22,27 @@ def generate_launch_description():
 
     ld.add_action(robot_name_arg)
 
+    event_based_sim_arg = DeclareLaunchArgument('event_based_sim',
+                                                description='Run event based simulation',
+                                                default_value='False')
+    ld.add_action(event_based_sim_arg)
+
     # GAZEBO
-    world_filename = PathJoinSubstitution([FindPackageShare("hidro_robots"), "worlds", "basic_world.world"])
+    world_filename = PythonExpression(
+        ["'event_based.world' if ",
+         LaunchConfiguration('event_based_sim'), " else 'basic_world.world'"])
+    world_path = PathJoinSubstitution([FindPackageShare("hidro_robots"), "worlds", world_filename])
+
+    enable_gui = PythonExpression(["'false' if ", LaunchConfiguration('event_based_sim'), " else 'true'"])
 
     gazebo = IncludeLaunchDescription(PythonLaunchDescriptionSource(
         [PathJoinSubstitution([FindPackageShare("gazebo_ros"), "launch", "gazebo.launch.py"])]),
                                       launch_arguments={
                                           "verbose": "true",
                                           "pause": "false",
-                                          "world": world_filename,
+                                          "world": world_path,
                                           "lockstep": "true",
+                                          "gui": enable_gui,
                                       }.items())
 
     ld.add_action(gazebo)
@@ -40,12 +51,10 @@ def generate_launch_description():
     robot_description_content = Command([
         PathJoinSubstitution([FindExecutable(name="xacro")]), " ",
         PathJoinSubstitution([
-            FindPackageShare("hidro_robots"),
-            "robots",
-            LaunchConfiguration("robot_name"),
-            "xacro",
-            "description.urdf.xacro",
-        ])
+            FindPackageShare("hidro_robots"), "robots",
+            LaunchConfiguration("robot_name"), "xacro", "description.urdf.xacro"
+        ]), " event_based_sim:=",
+        LaunchConfiguration("event_based_sim")
     ])
 
     robot_description = {"robot_description": robot_description_content}
