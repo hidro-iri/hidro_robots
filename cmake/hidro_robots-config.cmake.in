@@ -1,0 +1,4 @@
+get_filename_component(_dir "${CMAKE_CURRENT_LIST_FILE}" PATH)
+get_filename_component(_prefix "${_dir}/../../.." ABSOLUTE)
+
+set(hidro_robots_ROBOTS_DIR "${_prefix}/share/@PROJECT_NAME@")
