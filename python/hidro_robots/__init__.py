@@ -4,7 +4,7 @@
 # Copyright note valid unless otherwise stated in individual files.
 # All rights reserved.
 
-from os import path
+import os
 
 import pinocchio
 from hidro_robots.path import HIDRO_ROBOTS
@@ -16,7 +16,7 @@ class RobotLoader:
         self.__urdf_filename = urdf_filename
         self.__robot_name = robot_name
 
-        self.__urdf_path = path.join(
+        self.__urdf_path = os.path.join(
             HIDRO_ROBOTS, "robots", self.__robot_name, self.__urdf_filename
         )
         self.robot = pinocchio.RobotWrapper.BuildFromURDF(
