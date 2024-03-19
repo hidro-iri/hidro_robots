@@ -19,7 +19,7 @@ if(CREATE_PLAIN_URDFS)
         message(STATUS "   Creating " ${ROBOT_NAME})
         execute_process(
           COMMAND xacro ${ROBOT_DIR}/xacro/description.urdf.xacro -o
-                  ${ROBOT_DIR}/${ROBOT_NAME}.urdf simulation:=false)
+                  ${ROBOT_DIR}/${ROBOT_NAME}.urdf simulation:=false event_based_sim:=false)
       endif()
     endforeach()
   else()

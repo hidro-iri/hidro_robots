@@ -90,7 +90,9 @@
             <timeConstantDown>0.005</timeConstantDown>
             <maxRotVelocity>2236</maxRotVelocity>
             <motorConstant>3.847e-6</motorConstant>
-            <momentConstant>0.06</momentConstant>
+            <!-- <momentConstant>0.06</momentConstant> -->
+            <!-- this is for borinot -->
+            <momentConstant>0.016894178436859097</momentConstant> 
             <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
             <motorNumber>${rotor_number}</motorNumber>
             <rotorDragCoefficient>0.000175</rotorDragCoefficient>
